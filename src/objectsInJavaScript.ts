@@ -29,10 +29,6 @@ function defineProperty() {
   });
 }
 
-function inheritance() {
-   
-}
-
 export default function objectsInJavaScript() {
   delimeterMsg('OBJECTS IN JAVASCRIPT');
 
