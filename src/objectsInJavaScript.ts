@@ -1,7 +1,6 @@
-import { delimeterMsg } from "./utils";
-import { log } from "util";
+import { delimeterMsg, logF, log } from "./utils";
 
-function createingNewObjects() {
+function creatingNewObjects() {
   const obj = {};
   const obj2 = Object.create(Object.prototype);
   const obj3 = new Object();
@@ -31,7 +30,7 @@ function defineProperty() {
 
 export default function objectsInJavaScript() {
   delimeterMsg('OBJECTS IN JAVASCRIPT');
-
-  log('Creating new objects');
-  createingNewObjects();
+  logF(creatingNewObjects);
+  logF(accessingAttributes);
+  logF(defineProperty);
 }
