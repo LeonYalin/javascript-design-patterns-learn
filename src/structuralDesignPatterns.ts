@@ -3,10 +3,10 @@ import { delimeterMsg, logF, log } from "./utils";
 function Person(name: string) {
   this.name = name;
 }
-Person.prototype.move = function() {
+Person.prototype.move = function () {
   console.log('I am moving');
 }
-Person.prototype.sayHello = function() {
+Person.prototype.sayHello = function () {
   console.log(`Hello, I am ${this.name}`);
 }
 
@@ -39,7 +39,7 @@ function advancedDecorator() {
   student.move();
 
   // another way of decorating a method
-  student.walk = () => {console.log('walk')};
+  student.walk = () => { console.log('walk') };
   const oldWalk = student.walk;
   student.walk = () => {
     console.log('new walk method..');
@@ -62,7 +62,7 @@ function facadePattern() {
       const person = new Person('Leon Yalin');
       person.move();
       person.sayHello();
-      person.walk = () => {console.log('walk')};
+      person.walk = () => { console.log('walk') };
       person.walk();
     }
     return {
@@ -72,9 +72,38 @@ function facadePattern() {
   personFacade.createAndTestPerson();
 }
 
+function createFlyweight() {
+  enum FWPersonTypes { Student, Employee };
+  enum Genders { M, F };
+
+  function FWPerson(name: string, type: FWPersonTypes, gender: Genders) {
+    this.name = name;
+    this.type = type;
+    this.gender = gender;
+    this.flyweight = FlyweightFactory.get(name, type, gender);
+  }
+
+  const FlyweightFactory = (function(){
+    const flyweights = {};
+    const get = (name: string, type: FWPersonTypes, gender: Genders) => {
+      const key = `${name}${type}${gender}`;
+      if (flyweights[key]) {
+        return flyweights[key];
+      } else {
+        // @ts-ignore
+        flyweights[key] = new FWPerson(name, type, gender);
+        return flyweights[key];
+      }
+    }
+    return {
+      get,
+    }
+  }());
+}
+
 function flyweightPattern() {
-  log('Flyweight pattern helps with saving memory by sharing portions of an object between objects.');
-  
+  log('Flyweight pattern helps with saving memory by sharing portions of an object between objects. (e.g. caching / memoizing)');
+  createFlyweight();
 }
 
 export default function structuralDesignPatterns() {
